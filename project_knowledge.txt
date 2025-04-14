@@ -1,0 +1,871 @@
+# Project Knowledge Generated at: 2025-04-14 11:38:38
+
+
+================================================================================
+# File: project_knowledge.txt
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/project_knowledge.txt
+================================================================================
+
+# Project Knowledge Generated at: 2025-04-14 11:38:02
+
+
+================================================================================
+# File: postcss.config.mjs
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/postcss.config.mjs
+================================================================================
+
+/** @type {import('postcss-load-config').Config} */
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+
+
+
+
+================================================================================
+# File: mdx-components.tsx
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/mdx-components.tsx
+================================================================================
+
+import React, { ComponentPropsWithoutRef } from 'react';
+import Link from 'next/link';
+import { highlight } from 'sugar-high';
+
+type HeadingProps = ComponentPropsWithoutRef<'h1'>;
+type ParagraphProps = ComponentPropsWithoutRef<'p'>;
+type ListProps = ComponentPropsWithoutRef<'ul'>;
+type ListItemProps = ComponentPropsWithoutRef<'li'>;
+type AnchorProps = ComponentPropsWithoutRef<'a'>;
+type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
+
+const components = {
+  h1: (props: HeadingProps) => (
+    <h1 className="font-medium pt-12 mb-0" {...props} />
+  ),
+  h2: (props: HeadingProps) => (
+    <h2
+      className="text-gray-800 dark:text-zinc-200 font-medium mt-8 mb-3"
+      {...props}
+    />
+  ),
+  h3: (props: HeadingProps) => (
+    <h3
+      className="text-gray-800 dark:text-zinc-200 font-medium mt-8 mb-3"
+      {...props}
+    />
+  ),
+  h4: (props: HeadingProps) => <h4 className="font-medium" {...props} />,
+  p: (props: ParagraphProps) => (
+    <p className="text-gray-800 dark:text-zinc-300 leading-snug" {...props} />
+  ),
+  ol: (props: ListProps) => (
+    <ol
+      className="text-gray-800 dark:text-zinc-300 list-decimal pl-5 space-y-2"
+      {...props}
+    />
+  ),
+  ul: (props: ListProps) => (
+    <ul
+      className="text-gray-800 dark:text-zinc-300 list-disc pl-5 space-y-1"
+      {...props}
+    />
+  ),
+  li: (props: ListItemProps) => <li className="pl-1" {...props} />,
+  em: (props: ComponentPropsWithoutRef<'em'>) => (
+    <em className="font-medium" {...props} />
+  ),
+  strong: (props: ComponentPropsWithoutRef<'strong'>) => (
+    <strong className="font-medium" {...props} />
+  ),
+  a: ({ href, children, ...props }: AnchorProps) => {
+    const className =
+      'text-blue-500 hover:text-blue-700 dark:text-gray-400 hover:dark:text-gray-300 dark:underline dark:underline-offset-2 dark:decoration-gray-800';
+    if (href?.startsWith('/')) {
+      return (
+        <Link href={href} className={className} {...props}>
+          {children}
+        </Link>
+      );
+    }
+    if (href?.startsWith('#')) {
+      return (
+        <a href={href} className={className} {...props}>
+          {children}
+        </a>
+      );
+    }
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  },
+  code: ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => {
+    const codeHTML = highlight(children as string);
+    return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+  },
+  Table: ({ data }: { data: { headers: string[]; rows: string[][] } }) => (
+    <table>
+      <thead>
+        <tr>
+          {data.headers.map((header, index) => (
+            <th key={index}>{header}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {data.rows.map((row, index) => (
+          <tr key={index}>
+            {row.map((cell, cellIndex) => (
+              <td key={cellIndex}>{cell}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  ),
+  blockquote: (props: BlockquoteProps) => (
+    <blockquote
+      className="ml-[0.075em] border-l-3 border-gray-300 pl-4 text-gray-700 dark:border-zinc-600 dark:text-zinc-300"
+      {...props}
+    />
+  ),
+};
+
+declare global {
+  type MDXProvidedComponents = typeof components;
+}
+
+export function useMDXComponents(): MDXProvidedComponents {
+  return components;
+}
+
+
+
+
+================================================================================
+# File: package.json
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/package.json
+================================================================================
+
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "delete": "rm -rf app/n"
+  },
+  "dependencies": {
+    "@next/mdx": "15.3.0",
+    "@tailwindcss/postcss": "^4.1.3",
+    "@types/mdx": "^2.0.13",
+    "@vercel/analytics": "^1.5.0",
+    "framer-motion": "^12.6.3",
+    "next": "15.3.0",
+    "postgres": "^3.4.5",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "sugar-high": "^0.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.2",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.3",
+    "typescript": "^5.8.3"
+  }
+}
+
+
+
+
+================================================================================
+# File: tsconfig.json
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/tsconfig.json
+================================================================================
+
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.mdx",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "app/n/ai/*.tsx"
+  ]
+}
+
+
+
+
+================================================================================
+# File: generate_project_knowledge.py
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/generate_project_knowledge.py
+================================================================================
+
+import os
+import datetime
+
+def should_process_file(file_path):
+    """
+    Determine if a file should be processed based on its extension and path.
+    Include hidden files but not files in hidden directories.
+    Excludes specific files and extensions.
+    
+    Args:
+        file_path (str): Path to the file
+    
+    Returns:
+        bool: True if file should be processed, False otherwise
+    """
+    # List of extensions to include
+    valid_extensions = (
+        '.js', '.jsx', '.ts', '.tsx', '.css', '.scss', '.json',
+        '.env', '.eslintrc', '.prettierrc', '.babelrc', '.mjs', 
+        '.env.local', '.env.development', '.env.production',
+        '.yml', '.py'
+    )
+    
+    # List of specific files to exclude
+    excluded_files = {
+        'package-lock.json',
+        'README.md',
+        '.gitignore',
+        '.gitattributes',
+        '.DS_Store'
+    }
+    
+    # Get the filename
+    filename = os.path.basename(file_path)
+    
+    # Check if file is in a hidden directory
+    path_parts = os.path.normpath(file_path).split(os.sep)
+    for part in path_parts[:-1]:  # Exclude the filename itself
+        if part.startswith('.'):
+            return False
+    
+    # Exclude specific files
+    if filename in excluded_files:
+        return False
+        
+    # Exclude .sh files
+    if filename.endswith('.sh'):
+        return False
+    
+    # Include the file if it has a relevant extension or is a hidden file
+    # (except for the specifically excluded ones)
+    return file_path.endswith(valid_extensions) or (
+        os.path.basename(file_path).startswith('.') and 
+        filename not in excluded_files
+    )
+
+def generate_project_knowledge(root_directory, output_file):
+    """
+    Generates a single text file containing all source code from both root and src directory
+    with file paths as comments.
+    
+    Args:
+        root_directory (str): Path to the project root directory
+        output_file (str): Path where the output file should be saved
+    """
+    # Create a list to store all file contents
+    all_contents = []
+    
+    # Add timestamp at the beginning
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    all_contents.append(f"# Project Knowledge Generated at: {timestamp}\n\n")
+    
+    # Keep track of processed files for reporting
+    processed_files = []
+    skipped_files = []
+    
+    # Function to process a directory
+    def process_directory(directory, is_root=False):
+        # Process files in the current directory first
+        for item in os.listdir(directory):
+            item_path = os.path.join(directory, item)
+            relative_path = os.path.relpath(item_path, root_directory)
+            
+            # Skip if it's a directory
+            if os.path.isdir(item_path):
+                # If it's src directory or we're in root, process it
+                if item == 'src' or not is_root:
+                    process_directory(item_path)
+                continue
+            
+            # Check if we should process this file
+            if should_process_file(item_path):
+                try:
+                    with open(item_path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    
+                    # Add file header with path information
+                    all_contents.append(f"{'=' * 80}")
+                    all_contents.append(f"# File: {relative_path}")
+                    all_contents.append(f"# Full Path: {item_path}")
+                    all_contents.append(f"{'=' * 80}\n")
+                    
+                    # Add the file content
+                    all_contents.append(content)
+                    all_contents.append("\n\n")
+                    
+                    processed_files.append(relative_path)
+                except Exception as e:
+                    all_contents.append(f"# Error reading {item_path}: {str(e)}\n\n")
+            else:
+                skipped_files.append(relative_path)
+    
+    # Start processing from root
+    process_directory(root_directory, is_root=True)
+    
+    # Write everything to the output file
+    try:
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(all_contents))
+        
+        # Print statistics and file lists
+        print(f"\nSuccessfully generated project knowledge file: {output_file}")
+        print(f"Total files processed: {len(processed_files)}")
+        
+        print("\nProcessed files:")
+        for file in sorted(processed_files):
+            print(f"+ {file}")
+            
+        print("\nSkipped files:")
+        for file in sorted(skipped_files):
+            print(f"- {file}")
+        
+    except Exception as e:
+        print(f"Error writing output file: {str(e)}")
+
+if __name__ == "__main__":
+    # Get the current working directory
+    current_dir = os.getcwd()
+    
+    # Define output file path
+    output_file = os.path.join(current_dir, "project_knowledge.txt")
+    
+    # Generate the project knowledge file
+    generate_project_knowledge(current_dir, output_file)
+
+
+
+================================================================================
+# File: next.config.ts
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/next.config.ts
+================================================================================
+
+import type { NextConfig } from 'next';
+import createMDX from '@next/mdx';
+import postgres from 'postgres';
+
+export const sql = postgres(process.env.POSTGRES_URL!, {
+  ssl: 'allow'
+});
+
+const nextConfig: NextConfig = {
+  pageExtensions: ['mdx', 'ts', 'tsx'],
+  async redirects() {
+    if (!process.env.POSTGRES_URL) {
+      return [];
+    }
+
+    let redirects = await sql`
+      SELECT source, destination, permanent
+      FROM redirects;
+    `;
+
+    return redirects.map(({ source, destination, permanent }) => ({
+      source,
+      destination,
+      permanent: !!permanent
+    }));
+  },
+  // Note: Using the Rust compiler means we cannot use
+  // rehype or remark plugins. For my app, this is fine.
+  experimental: {
+    mdxRs: true,
+    viewTransition: true
+  }
+};
+
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);
+
+
+
+
+
+
+
+================================================================================
+# File: postcss.config.mjs
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/postcss.config.mjs
+================================================================================
+
+/** @type {import('postcss-load-config').Config} */
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+
+
+
+
+================================================================================
+# File: mdx-components.tsx
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/mdx-components.tsx
+================================================================================
+
+import React, { ComponentPropsWithoutRef } from 'react';
+import Link from 'next/link';
+import { highlight } from 'sugar-high';
+
+type HeadingProps = ComponentPropsWithoutRef<'h1'>;
+type ParagraphProps = ComponentPropsWithoutRef<'p'>;
+type ListProps = ComponentPropsWithoutRef<'ul'>;
+type ListItemProps = ComponentPropsWithoutRef<'li'>;
+type AnchorProps = ComponentPropsWithoutRef<'a'>;
+type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
+
+const components = {
+  h1: (props: HeadingProps) => (
+    <h1 className="font-medium pt-12 mb-0" {...props} />
+  ),
+  h2: (props: HeadingProps) => (
+    <h2
+      className="text-gray-800 dark:text-zinc-200 font-medium mt-8 mb-3"
+      {...props}
+    />
+  ),
+  h3: (props: HeadingProps) => (
+    <h3
+      className="text-gray-800 dark:text-zinc-200 font-medium mt-8 mb-3"
+      {...props}
+    />
+  ),
+  h4: (props: HeadingProps) => <h4 className="font-medium" {...props} />,
+  p: (props: ParagraphProps) => (
+    <p className="text-gray-800 dark:text-zinc-300 leading-snug" {...props} />
+  ),
+  ol: (props: ListProps) => (
+    <ol
+      className="text-gray-800 dark:text-zinc-300 list-decimal pl-5 space-y-2"
+      {...props}
+    />
+  ),
+  ul: (props: ListProps) => (
+    <ul
+      className="text-gray-800 dark:text-zinc-300 list-disc pl-5 space-y-1"
+      {...props}
+    />
+  ),
+  li: (props: ListItemProps) => <li className="pl-1" {...props} />,
+  em: (props: ComponentPropsWithoutRef<'em'>) => (
+    <em className="font-medium" {...props} />
+  ),
+  strong: (props: ComponentPropsWithoutRef<'strong'>) => (
+    <strong className="font-medium" {...props} />
+  ),
+  a: ({ href, children, ...props }: AnchorProps) => {
+    const className =
+      'text-blue-500 hover:text-blue-700 dark:text-gray-400 hover:dark:text-gray-300 dark:underline dark:underline-offset-2 dark:decoration-gray-800';
+    if (href?.startsWith('/')) {
+      return (
+        <Link href={href} className={className} {...props}>
+          {children}
+        </Link>
+      );
+    }
+    if (href?.startsWith('#')) {
+      return (
+        <a href={href} className={className} {...props}>
+          {children}
+        </a>
+      );
+    }
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  },
+  code: ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => {
+    const codeHTML = highlight(children as string);
+    return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+  },
+  Table: ({ data }: { data: { headers: string[]; rows: string[][] } }) => (
+    <table>
+      <thead>
+        <tr>
+          {data.headers.map((header, index) => (
+            <th key={index}>{header}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {data.rows.map((row, index) => (
+          <tr key={index}>
+            {row.map((cell, cellIndex) => (
+              <td key={cellIndex}>{cell}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  ),
+  blockquote: (props: BlockquoteProps) => (
+    <blockquote
+      className="ml-[0.075em] border-l-3 border-gray-300 pl-4 text-gray-700 dark:border-zinc-600 dark:text-zinc-300"
+      {...props}
+    />
+  ),
+};
+
+declare global {
+  type MDXProvidedComponents = typeof components;
+}
+
+export function useMDXComponents(): MDXProvidedComponents {
+  return components;
+}
+
+
+
+
+================================================================================
+# File: package.json
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/package.json
+================================================================================
+
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "delete": "rm -rf app/n"
+  },
+  "dependencies": {
+    "@next/mdx": "15.3.0",
+    "@tailwindcss/postcss": "^4.1.3",
+    "@types/mdx": "^2.0.13",
+    "@vercel/analytics": "^1.5.0",
+    "framer-motion": "^12.6.3",
+    "next": "15.3.0",
+    "postgres": "^3.4.5",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "sugar-high": "^0.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.2",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.3",
+    "typescript": "^5.8.3"
+  }
+}
+
+
+
+
+================================================================================
+# File: tsconfig.json
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/tsconfig.json
+================================================================================
+
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.mdx",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "app/n/ai/*.tsx"
+  ]
+}
+
+
+
+
+================================================================================
+# File: generate_project_knowledge.py
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/generate_project_knowledge.py
+================================================================================
+
+import os
+import datetime
+
+def should_process_file(file_path):
+    """
+    Determine if a file should be processed based on its extension and path.
+    Include hidden files but not files in hidden directories.
+    Excludes specific files and extensions.
+    
+    Args:
+        file_path (str): Path to the file
+    
+    Returns:
+        bool: True if file should be processed, False otherwise
+    """
+    # List of extensions to include
+    valid_extensions = (
+        '.js', '.jsx', '.ts', '.tsx', '.css', '.scss', '.json',
+        '.env', '.eslintrc', '.prettierrc', '.babelrc', '.mjs', 
+        '.env.local', '.env.development', '.env.production',
+        '.yml', '.py', '.sh', '.html', '.md', '.txt', '.xml', '.mdx'
+    )
+    
+    # List of specific files to exclude
+    excluded_files = {
+        'package-lock.json',
+        'README.md',
+        '.gitignore',
+        '.gitattributes',
+        '.DS_Store'
+    }
+    
+    # Get the filename
+    filename = os.path.basename(file_path)
+    
+    # Check if file is in a hidden directory
+    path_parts = os.path.normpath(file_path).split(os.sep)
+    for part in path_parts[:-1]:  # Exclude the filename itself
+        if part.startswith('.'):
+            return False
+    
+    # Exclude specific files
+    if filename in excluded_files:
+        return False
+        
+    # Exclude .sh files
+    if filename.endswith('.sh'):
+        return False
+    
+    # Include the file if it has a relevant extension or is a hidden file
+    # (except for the specifically excluded ones)
+    return file_path.endswith(valid_extensions) or (
+        os.path.basename(file_path).startswith('.') and 
+        filename not in excluded_files
+    )
+
+def generate_project_knowledge(root_directory, output_file):
+    """
+    Generates a single text file containing all source code from both root and src directory
+    with file paths as comments.
+    
+    Args:
+        root_directory (str): Path to the project root directory
+        output_file (str): Path where the output file should be saved
+    """
+    # Create a list to store all file contents
+    all_contents = []
+    
+    # Add timestamp at the beginning
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    all_contents.append(f"# Project Knowledge Generated at: {timestamp}\n\n")
+    
+    # Keep track of processed files for reporting
+    processed_files = []
+    skipped_files = []
+    
+    # Function to process a directory
+    def process_directory(directory, is_root=False):
+        # Process files in the current directory first
+        for item in os.listdir(directory):
+            item_path = os.path.join(directory, item)
+            relative_path = os.path.relpath(item_path, root_directory)
+            
+            # Skip if it's a directory
+            if os.path.isdir(item_path):
+                # If it's src directory or we're in root, process it
+                if item == 'src' or not is_root:
+                    process_directory(item_path)
+                continue
+            
+            # Check if we should process this file
+            if should_process_file(item_path):
+                try:
+                    with open(item_path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    
+                    # Add file header with path information
+                    all_contents.append(f"{'=' * 80}")
+                    all_contents.append(f"# File: {relative_path}")
+                    all_contents.append(f"# Full Path: {item_path}")
+                    all_contents.append(f"{'=' * 80}\n")
+                    
+                    # Add the file content
+                    all_contents.append(content)
+                    all_contents.append("\n\n")
+                    
+                    processed_files.append(relative_path)
+                except Exception as e:
+                    all_contents.append(f"# Error reading {item_path}: {str(e)}\n\n")
+            else:
+                skipped_files.append(relative_path)
+    
+    # Start processing from root
+    process_directory(root_directory, is_root=True)
+    
+    # Write everything to the output file
+    try:
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(all_contents))
+        
+        # Print statistics and file lists
+        print(f"\nSuccessfully generated project knowledge file: {output_file}")
+        print(f"Total files processed: {len(processed_files)}")
+        
+        print("\nProcessed files:")
+        for file in sorted(processed_files):
+            print(f"+ {file}")
+            
+        print("\nSkipped files:")
+        for file in sorted(skipped_files):
+            print(f"- {file}")
+        
+    except Exception as e:
+        print(f"Error writing output file: {str(e)}")
+
+if __name__ == "__main__":
+    # Get the current working directory
+    current_dir = os.getcwd()
+    
+    # Define output file path
+    output_file = os.path.join(current_dir, "project_knowledge.txt")
+    
+    # Generate the project knowledge file
+    generate_project_knowledge(current_dir, output_file)
+
+
+
+================================================================================
+# File: next.config.ts
+# Full Path: /Users/jankirenz/code/nextjs/site-mdx/next.config.ts
+================================================================================
+
+import type { NextConfig } from 'next';
+import createMDX from '@next/mdx';
+import postgres from 'postgres';
+
+export const sql = postgres(process.env.POSTGRES_URL!, {
+  ssl: 'allow'
+});
+
+const nextConfig: NextConfig = {
+  pageExtensions: ['mdx', 'ts', 'tsx'],
+  async redirects() {
+    if (!process.env.POSTGRES_URL) {
+      return [];
+    }
+
+    let redirects = await sql`
+      SELECT source, destination, permanent
+      FROM redirects;
+    `;
+
+    return redirects.map(({ source, destination, permanent }) => ({
+      source,
+      destination,
+      permanent: !!permanent
+    }));
+  },
+  // Note: Using the Rust compiler means we cannot use
+  // rehype or remark plugins. For my app, this is fine.
+  experimental: {
+    mdxRs: true,
+    viewTransition: true
+  }
+};
+
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);
+
+
+
